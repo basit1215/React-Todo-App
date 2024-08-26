@@ -2,30 +2,42 @@ import { useRef } from "react";
 import { useState } from "react"
 
 
-function App() {
+const App = () => {
 
-  const [text, setText] = useRef();
   const [todo, setTodo] = useState([]);
+  const todoValue = useRef();
 
+  const addTodo = (event) => {
 
-
-  function addTodo(event) {
     event.preventDefault();
-    console.log(text);
-    setTodo([...todo, text]);
+    console.log(todoValue);
+    todo.push(todoValue.current.value);
+    setTodo([...todo]);
     console.log(todo);
-    setText("");
+    todoValue.current.value = "";
+
   }
 
-  const deleteTodo = (index)=>{
+  const deleteTodo = (index) => {
+
     todo.splice(index, 1);
     setTodo([...todo]);
+    console.log(todo);
+
   }
 
-  const editTodo = (index)=>{
-    const updatedTodo = prompt("Edit Todo");
+  const editTodo = (index) => {
+
+    const updatedTodo = prompt("Enter Edit Todo");
+
+    if (updatedTodo === "") {
+      alert("Try Again!\nPlease Enter new Edited Todo");
+      return
+    }
+
     todo.splice(index, 1, updatedTodo);
     setTodo([...todo]);
+    console.log(todo);
   }
 
   return (
@@ -33,23 +45,18 @@ function App() {
 
       <h1>Todo App</h1>
       <form onSubmit={addTodo}>
-        <input type="text" placeholder="Enter Todo" onChange={(e) => setText(e.target.value)} Ref={text} />
+        <input type="text" placeholder="Enter Todo" ref={todoValue} />
         <button type="submit">Add Todo</button>
-        <ul>
-          {todo.map((item, index) => {
-            return <div key={index} >
-              <li>{item}</li>
-              <button onClick={() => deleteTodo(index)}>Delete</button>
-              <button onClick={() => editTodo(index)}>Edit</button>
-            </div>
-          })}
-        </ul>
-
-
-
-
-
       </form>
+      <ul>
+        {todo.map((item, index) => {
+          return <div key={index} >
+            <li>{item}</li>
+            <button onClick={() => deleteTodo(index)}>Delete</button>
+            <button onClick={() => editTodo(index)}>Edit</button>
+          </div>
+        })}
+      </ul>
 
     </ >
   )
