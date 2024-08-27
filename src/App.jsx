@@ -8,13 +8,17 @@ const App = () => {
   const todoValue = useRef();
 
   const addTodo = (event) => {
-
     event.preventDefault();
-    console.log(todoValue);
-    todo.push(todoValue.current.value);
-    setTodo([...todo]);
-    console.log(todo);
-    todoValue.current.value = "";
+
+    if (!todoValue.current.value) {
+      alert("Please Enter Todo!");
+    }
+    else {
+      todo.push(todoValue.current.value);
+      setTodo([...todo]);
+      console.log(todo);
+      todoValue.current.value = "";
+    }
 
   }
 
@@ -42,22 +46,22 @@ const App = () => {
 
   return (
     < >
-
-      <h1>Todo App</h1>
-      <form onSubmit={addTodo}>
-        <input type="text" placeholder="Enter Todo" ref={todoValue} />
-        <button type="submit">Add Todo</button>
-      </form>
-      <ul>
-        {todo.map((item, index) => {
-          return <div key={index} >
-            <li>{item}</li>
-            <button onClick={() => deleteTodo(index)}>Delete</button>
-            <button onClick={() => editTodo(index)}>Edit</button>
-          </div>
-        })}
-      </ul>
-
+      <div className="container">
+        <h1 className="main-heading">Todo App</h1>
+        <form onSubmit={addTodo}>
+          <input type="text" placeholder="Enter Todo" className="todo-inp" ref={todoValue} />
+          <button type="submit" className="todo-btn">Add Todo</button>
+        </form>
+        <ul className="todo-list">
+          {todo.map((item, index) => {
+            return <div key={index} >
+              <li className="list">{item}</li>
+              <button className="delete-btn buttons" onClick={() => deleteTodo(index)}>Delete</button>
+              <button className="edit-btn buttons" onClick={() => editTodo(index)}>Edit</button>
+            </div>
+          })}
+        </ul>
+      </div>
     </ >
   )
 }
