@@ -10,6 +10,8 @@ const App = () => {
   const addTodo = (event) => {
     event.preventDefault();
 
+
+
     if (!todoValue.current.value) {
       alert("Please Enter Todo!");
     }
@@ -19,8 +21,9 @@ const App = () => {
       console.log(todo);
       todoValue.current.value = "";
     }
-
+ 
   }
+
 
   const deleteTodo = (index) => {
 
@@ -44,6 +47,11 @@ const App = () => {
     console.log(todo);
   }
 
+  // const deleteAll = () => {
+  //   setTodo([]);
+  // }
+  // <button onClick={() => deleteAll()}  className="todo-btn">Delete All</button>
+
   return (
     < >
       <div className="container">
@@ -55,9 +63,13 @@ const App = () => {
         <ul className="todo-list">
           {todo.map((item, index) => {
             return <div key={index} >
-              <li className="list">{item}</li>
-              <button className="delete-btn buttons" onClick={() => deleteTodo(index)}>Delete</button>
-              <button className="edit-btn buttons" onClick={() => editTodo(index)}>Edit</button>
+              <li className="list">{item}
+                <div className="buttons-div">
+                  <button className="delete-btn buttons" onClick={() => deleteTodo(index)}>Delete</button>
+                  <button className="edit-btn buttons" onClick={() => editTodo(index)}>Edit</button>
+                </div>
+              </li>
+
             </div>
           })}
         </ul>
