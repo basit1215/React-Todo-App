@@ -35,7 +35,7 @@ const App = () => {
 
   const editTodo = (index) => {
 
-    const updatedTodo = prompt("Enter Edit Todo");
+    const updatedTodo = prompt("Enter Edit Todo", todoValue);
 
     if (updatedTodo === "") {
       alert("Try Again!\nPlease Enter new Edited Todo");
